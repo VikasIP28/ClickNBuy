@@ -3,6 +3,9 @@ package com.E_commerce.ClickNBuy.dao;
 import org.springframework.stereotype.Repository;
 
 import com.E_commerce.ClickNBuy.entity.User;
+
+import com.E_commerce.ClickNBuy.exception.DataNotFoundException;
+
 import com.E_commerce.ClickNBuy.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
@@ -23,6 +26,10 @@ public class UserDao {
 
 	public boolean isMobileUnique(Long mobile) {
 		return !userRepository.existsByMobile(mobile);
+	}
+	
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email).orElseThrow(()->new DataNotFoundException("Email Doesnot Exist"));
 	}
 	
 }
